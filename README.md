@@ -1,5 +1,8 @@
 # Azimuth calculation
 
+> Note: git log shows too many entries, repository was once an everything-combined repo, which was not a good idea.
+
+
 ## Prerequisites
 
 ```
