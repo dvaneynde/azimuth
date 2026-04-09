@@ -1,5 +1,16 @@
-# Created by Jayesh J.
+# Metals (Scala LSP)
+.metals/
+.bloop/
+.bsp/
 
+# VS Code
+.vscode/
+
+# macOS (recursive)
+**/.DS_Store
+
+
+# Created by Jayesh J.
 *.class
 *.log
 *.iml

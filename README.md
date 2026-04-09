@@ -5,13 +5,17 @@
 
 ## Prerequisites
 
+Use SDKMAN. Then check following:
+
 ```
-mbp2020:azimuth dirk$ sbt --version
-[info] 1.2.8
-sbt script version: 1.5.5
+# execute March 10, 2026 
+dirk@mmiM1 azimuth % sdk current java
+Current default java version 8.0.482-zulu
+dirk@mmiM1 azimuth % sdk current sbt 
+Current default sbt version 1.12.5
 ```
 
-Version of scala was 2.12.7
+Version of scala was 2.12.7, as specified in `sbt` build file. And after first run the version actually used of `sbt` is 1.2.8, check logs.
 
 ## Run tests
 
@@ -19,31 +23,33 @@ Version of scala was 2.12.7
 sbt test
 ```
 
-## Build jar and install into maven repository
+## Build jar and install into local Maven repository
 
 ```bash
-sbt package
+sbt publishM2
 ```
 
-This will generate `target/scala-2.12/domoticscala_2.12-0.1.0-SNAPSHOT.jar`.
+This will generate and install `azimuth_2.12-0.1.0.jar` into `~/.m2/repository/eu/dlvm/azimuth_2.12/0.1.0/`.
 
-To install it in local repository (**TODO untested**):
+
+## Iterative development
+For iterative development, use a snapshot version (`0.1.0-SNAPSHOT` in `build.sbt`) — snapshots are always overwritten without needing to manually delete the old artifact:
 
 ```bash
-$ mvn install:install-file \
--Dfile=target/scala-2.12/domoticscala_2.12-0.1.0-SNAPSHOT.jar \
--DgroupId="default" \
--DartifactId="domotic-scala_2.12" \
--Dversion="0.1.0-SNAPSHOT" \
--DgeneratePom=true \
--Dpackaging=jar
+sbt publishM2
 ```
 
-## Integrate this library in a Java program
+To start clean before publishing:
+```bash
+rm -rf ~/.m2/repository/eu/dlvm/azimuth_2.12/0.1.0
+sbt publishM2
+```
+
+## Integrate this library in a Maven project
 ``` xml
 <dependency>
-	<groupId>default</groupId>
-	<artifactId>domotic-scala_2.12</artifactId>
-	<version>1.0</version>
+    <groupId>eu.dlvm</groupId>
+    <artifactId>azimuth_2.12</artifactId>
+    <version>0.1.0</version>
 </dependency>
 ```
